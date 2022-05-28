@@ -245,6 +245,7 @@
       // Wallet
       try {
         getName();
+        setContractAddress();
         getWalletName();
         balanceOf();
         getBalance();
@@ -288,6 +289,10 @@
           console.error(error);
         }
       })
+    }
+    
+    function setContractAddress() {
+      $("#contract_address").html(contractAddress)
     }
 
     //Get Contract name
@@ -404,20 +409,6 @@
     }
   </script>
 
-  <style type="text/css">
-    .table-value {
-      padding-left: 10px;
-    }
-
-    .input {
-      width: 30em;
-    }
-
-    .field {
-      margin: 10px 0 10px 0;
-    }
-  </style>
-
 </head>
 
 <body>
@@ -456,7 +447,7 @@
                 </tr>
                 <tr>
                   <td>token address:</td>
-                  <td><span class="table-value">0x265347a75E3AA27c3beEE906e5ac750f466cb55B</span></td>
+                  <td><span class="table-value" id="contract_address"></span></td>
                 </tr>
               </tbody>
           </table>
