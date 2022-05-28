@@ -337,8 +337,30 @@
       let contract = new web3.eth.Contract(abi, contractAddress)
       contract.methods.setMyWalletName(named).send(option)
 
-        .on('confirmation', (confirmationNumber) => {
+        .on('error', (error) => {
+          console.error(error)
+          $("#status_value_2").text('Failed').css("color", "red");
+        })
+
+        // Transaction already saved to mempool
+        .on('transactionHash', (transactionHash) => {
+          // Show tx hash
+          console.log(transactionHash)
+          let link = "https://" + network.toLowerCase() + ".etherscan.io/tx/" + transactionHash
+          $("#tx_set_name_link").attr("href", link)
+          $("#tx_set_name_link").text(link)
+
+          // Clear status
+          $("#status_value_2").text('-');
+        })
+
+        // Transaction got confirmed
+        .on('confirmation', (confirmationNumber, receipt) => {
+          console.log('confirmationNumber', confirmationNumber)
+          console.log(receipt);
+          $("#status_value_2").text('Success').css("color", "green");
           reloadInfo();
+          callback(ok);
         })
     }
 
@@ -421,10 +443,10 @@
     <div class="row justify-content-between">
       <div class="col px-3">
 
-        <div class="text-bg-primary p-3">
+        <div class="text-bg-info p-3">
           <table class="wallet">
             <h1>Wallet</p>
-              <tbody class="table text-bg-primary">
+              <tbody class="table text-bg-info">
                 <tr>
                   <td>account:</td>
                   <td class="table-value"><span id="eth_address"></span></td>
@@ -434,11 +456,11 @@
                   <td class="table-value"><span id="wallet_name">noname</span></td>
                 </tr>
                 <tr>
-                  <td>ether:</td>
+                  <td>balance:</td>
                   <td class="table-value"><span id="balance"></span></td>
                 </tr>
                 <tr>
-                  <td>token:</td>
+                  <td>symbol:</td>
                   <td class="table-value"><span id="token_name"></span></td>
                 </tr>
                 <tr>
@@ -446,25 +468,35 @@
                   <td class="table-value"><span id="token_balance"></span></td>
                 </tr>
                 <tr>
-                  <td>token address:</td>
+                  <td>contract address:</td>
                   <td><span class="table-value" id="contract_address"></span></td>
                 </tr>
               </tbody>
           </table>
         </div>
 
-        <div class="text-bg-success p-3 mt-3">
+        <div class="text-bg-info p-3 mt-3">
           <table>
             <h1 class="title">Set wallet name</h1>
             <label>Change to:</label>
             <input id="walletName" class="input form-control" type="text" placeholder="name" value="">
-            <button class="btn btn-secondary mt-3" onclick="javascript:setMyWalletName()">Submit</button>
+            <button class="btn btn-primary mt-3" onclick="javascript:setMyWalletName()">Submit</button>
+              <p>
+                <span>Your pending transaction: </span>
+                <span>
+                  <a id="tx_set_name_link" target="_blank"></a>
+                </span>
+              </p>
+              <p>
+                <span>Status: </span>
+                <span id="status_value_2">-</span>
+              </p>
           </table>
         </div>
       </div>
 
       <div class="col px-0">
-        <div class="text-bg-secondary p-3">
+        <div class="text-bg-info p-3">
           <table class="transfer">
             <h1 class="title">Transfer</h1>
             <div class="field">
@@ -477,13 +509,13 @@
               <input id="toAddress" class="input form-control" type="text" placeholder="to address" value="">
             </div>
 
-            <div class="field">
+            <div class="field mb-3">
               <label>Amount</label>
               <input id="amount" class="input form-control" type="text" placeholder="amount to transfer" value="">
             </div>
 
             <div>
-              <button class="btn btn-danger" onclick="javascript:tokenTransfer()">Submit</button>
+              <button class="btn btn-primary" onclick="javascript:tokenTransfer()">Submit</button>
             </div>
 
             <div class="mt-2">
