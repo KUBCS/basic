@@ -351,13 +351,11 @@
           $("#tx_set_name_link").text(link)
 
           // Clear status
-          $("#status_value_2").text('-');
+          $("#status_value_2").text('pending . . .');
         })
 
         // Transaction got confirmed
-        .on('confirmation', (confirmationNumber, receipt) => {
-          console.log('confirmationNumber', confirmationNumber)
-          console.log(receipt);
+        .on('confirmation', (confirmationNumber) => {
           $("#status_value_2").text('Success').css("color", "green");
           reloadInfo();
           callback(ok);
@@ -407,7 +405,7 @@
           $("#tx_link").text(link)
 
           // Clear status
-          $("#status_value").text('-');
+          $("#status_value").text('pending . . .');
         })
 
         // Transaction got confirmed
@@ -476,7 +474,6 @@
         </div>
 
         <div class="text-bg-info p-3 mt-3">
-          <table>
             <h1 class="title">Set wallet name</h1>
             <label>Change to:</label>
             <input id="walletName" class="input form-control" type="text" placeholder="name" value="">
@@ -491,17 +488,15 @@
                 <span>Status: </span>
                 <span id="status_value_2">-</span>
               </p>
-          </table>
         </div>
       </div>
 
       <div class="col px-0">
         <div class="text-bg-info p-3">
-          <table class="transfer">
             <h1 class="title">Transfer</h1>
             <div class="field">
               <label>From</label>
-              <input id="fromAddress" class="input form-control" type="text" placeholder="from address" value="">
+              <input id="fromAddress" class="input form-control" disabled="true" type="text" placeholder="from address" value="">
             </div>
 
             <div class="field">
@@ -533,10 +528,14 @@
                 <span id="status_value">-</span>
               </p>
             </div>
-          </table>
         </div>
       </div>
     </div>
+  <footer style="display: flex; justify-content: center;">
+    <a href="https://web.facebook.com/KUBCS" target="_blank" class="m-4"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" width="60" height="60"></a>
+    <a href="https://twitter.com/KUBCS2022" target="_blank" class="m-4"><img src="https://cdn-icons.flaticon.com/png/512/3256/premium/3256013.png?token=exp=1654175101~hmac=d51fdabe7865ca3e99fd7b7f214e6e96" width="60" height="60"></a>
+    <a href="https://discord.gg/RKUDdDSJ8v" target="_blank" class="m-4"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="66" height="66"></a>
+  </footer>
   </div>
 </body>
 
