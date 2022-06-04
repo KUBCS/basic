@@ -169,7 +169,7 @@
       if (window.ethereum) {
         web3 = new Web3(ethereum);
 
-        window.ethereum.on('chainChanged', (_chainId) => window.location.reload());
+        window.ethereum.on('chainChanged', (_chainId) => startApp());
 
         try {
           // Request account access if needed
