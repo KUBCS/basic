@@ -169,6 +169,8 @@
       if (window.ethereum) {
         web3 = new Web3(ethereum);
 
+        window.ethereum.on('chainChanged', (_chainId) => window.location.reload());
+
         try {
           // Request account access if needed
           ethereum.enable().then(result => {
@@ -436,6 +438,7 @@
     <h1 class="px-3">
       <span>Network:</span>
       <span id="eth_network"></span>
+      <span id="warning" class="bg-danger text-white fs-3"></span>
     </h1>
 
     <div class="row justify-content-between">
