@@ -251,6 +251,7 @@
         getWalletName();
         balanceOf();
         getBalance();
+        getSymbol();
         let contract = new web3.eth.Contract(abi, contractAddress)
         console.log('contract', contract)
 
@@ -303,6 +304,13 @@
       contract.methods.getName().call().then(name => {
         console.log(name.toString());
         $("#token_name").html(name)
+      })
+    }
+    function getSymbol() {
+      let contract = new web3.eth.Contract(abi, contractAddress)
+      contract.methods.getSymbol().call().then(symbol => {
+        console.log(symbol.toString());
+        $("#symbol").html(symbol)
       })
     }
 
@@ -461,8 +469,12 @@
                   <td class="table-value"><span id="balance"></span></td>
                 </tr>
                 <tr>
-                  <td>symbol:</td>
+                  <td>Token Name:</td>
                   <td class="table-value"><span id="token_name"></span></td>
+                </tr>
+                <tr>
+                  <td>Symbol:</td>
+                  <td class="table-value"><span id="symbol"></span></td>
                 </tr>
                 <tr>
                   <td>token balance:</td>
