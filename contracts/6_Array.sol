@@ -1,4 +1,4 @@
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.14;
 contract array {  
     uint[] arr;
     uint[] arr2 = [1, 2, 3];
