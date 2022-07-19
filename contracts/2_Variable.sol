@@ -1,5 +1,4 @@
 pragma solidity ^0.8.14;
-
 contract Variables {
     // default values
     bool public a;// false

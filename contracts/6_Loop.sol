@@ -1,6 +1,5 @@
 pragma solidity ^0.8.14;
 contract Loop {
-
     function sumation_For(uint256 _x)public view returns(uint256){
         uint256 s;
         // x = 10
